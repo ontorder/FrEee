@@ -394,7 +394,7 @@ public class StarSystemLoader : DataFileLoader
 				else if (pos.StartsWith("Circle Radius "))
 				{
 					int radius;
-					if (!int.TryParse(pos.Substring("Circle Radius ".Length), out radius))
+					if (!int.TryParse(pos["Circle Radius ".Length..], out radius))
 					{
 						Mod.Errors.Add(new DataParsingException("Could not parse stellar object location \"" + pos + "\". Expected integer after Circle Radius.", Mod.CurrentFileName, rec));
 						continue;

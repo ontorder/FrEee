@@ -32,12 +32,12 @@ public static class AbilityLoader
 			lock (Mod.Current.AbilityRules)
 			{
 				var rules = Mod.Current.AbilityRules.Where(r => r.Matches(abilname)).ToArray();
-				if (rules.Count() > 1)
+				if (rules.Length > 1)
 				{
 					Mod.Errors.Add(new DataParsingException("Ambiguous ability name match for " + abilname + " alias between the following abilities: " + string.Join(", ", rules.Select(r => r.Name).ToArray()) + ".", filename, rec));
 					continue;
 				}
-				else if (rules.Count() == 0)
+				else if (rules.Length == 0)
 				{
 					// create an ad hoc ability rule
 					abil.Rule = new AbilityRule { Name = abilname };

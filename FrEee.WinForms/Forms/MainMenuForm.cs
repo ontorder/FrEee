@@ -47,7 +47,7 @@ public partial class MainMenuForm : GameForm
 		};
 
 		string[] warnings = new string[0];
-		Thread t = new Thread(new ThreadStart(() =>
+		Thread t = new(new ThreadStart(() =>
 		{
 #if RELEASE
 			try

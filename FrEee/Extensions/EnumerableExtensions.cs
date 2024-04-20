@@ -87,7 +87,7 @@ public static class EnumerableExtensions
 			if (wrap)
 				return list.FirstOrDefault();
 			else
-				return default(T);
+				return default;
 		}
 		else
 			return list.ElementAt(index);

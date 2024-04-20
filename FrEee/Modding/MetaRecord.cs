@@ -93,7 +93,7 @@ public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 	public IEnumerable<Record> Instantiate()
 	{
 		var parms = Parameters.ToArray();
-		if (!parms.Any())
+		if (parms.Length == 0)
 		{
 			var rec = new Record();
 			foreach (var f in Fields)
@@ -164,32 +164,27 @@ public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 		return field;
 	}
 
-	private IList<IDictionary<string, int>> CreatePermutations(MetaRecordParameter parm, IList<IDictionary<string, int>> previous = null)
+	private static IList<IDictionary<string, int>> CreatePermutations(MetaRecordParameter recParam, IList<IDictionary<string, int>>? prevState = null)
 	{
-		var cur = new List<IDictionary<string, int>>();
-		if (previous == null || previous.Count == 0)
+		if (prevState == null || prevState.Count == 0)
 		{
-			for (int i = parm.Minimum; i <= parm.Maximum; i++)
+			return Enumerable.Range(start: recParam.Minimum, count: recParam.Maximum - recParam.Minimum + 1)
+				.Select(i => (IDictionary<string, int>)new Dictionary<string, int> { { recParam.Name, i } })
+				.ToList();
+		}
+
+		var retDics = new List<IDictionary<string, int>>();
+		foreach (var prevDict in prevState)
+		{
+			for (int i = recParam.Minimum; i <= recParam.Maximum; i++)
 			{
 				var newdict = new Dictionary<string, int>();
-				newdict.Add(parm.Name, i);
-				cur.Add(newdict);
+				foreach (var prevKvp in prevDict)
+					newdict.Add(prevKvp.Key, prevKvp.Value);
+				newdict.Add(recParam.Name, i);
+				retDics.Add(newdict);
 			}
 		}
-		else
-		{
-			foreach (var dict in previous)
-			{
-				for (int i = parm.Minimum; i <= parm.Maximum; i++)
-				{
-					var newdict = new Dictionary<string, int>();
-					foreach (var kvp in dict)
-						newdict.Add(kvp.Key, kvp.Value);
-					newdict.Add(parm.Name, i);
-					cur.Add(newdict);
-				}
-			}
-		}
-		return cur;
+		return retDics;
 	}
 }

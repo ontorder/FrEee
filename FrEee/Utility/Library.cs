@@ -21,13 +21,7 @@ public static class Library
 	/// <summary>
 	/// The full path to the library file.
 	/// </summary>
-	public static string FilePath
-	{
-		get
-		{
-			return Path.Combine(ClientUtilities.ApplicationDataPath, "Library.dat");
-		}
-	}
+	public static string FilePath => Path.Combine(ClientUtilities.ApplicationDataPath, "Library.dat");
 
 	/// <summary>
 	/// The items in the library.
