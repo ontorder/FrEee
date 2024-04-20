@@ -11,10 +11,7 @@ public interface ISimpleDataObject : IDataObject
 	ObjectGraphContext Context { get; set; }
 	int ID { get; }
 
-	SafeDictionary<string, IData> SimpleData
-	{
-		get; set;
-	}
+	SafeDictionary<string, IData> SimpleData { get; set; }
 
 	object Value { get; }
 

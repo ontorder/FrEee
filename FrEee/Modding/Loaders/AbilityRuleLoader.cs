@@ -35,12 +35,12 @@ public class AbilityRuleLoader : DataFileLoader
 			r.Description = rec.Get<string>("Description", r);
 			for (int i = 1; i <= 2; i++)
 			{
-				var f = rec.FindField("Value " + i + " Rule", ref index, false, 0, true);
+				var f = rec.FindField($"Value {i} Rule", ref index, false, 0, true);
 				if (f == null)
 					r.ValueRules.Add(AbilityValueRule.None);
 				else
 					r.ValueRules.Add(f.CreateFormula<AbilityValueRule>(r));
-				f = rec.FindField("Value " + i + " Group Rule", ref index, false, 0, true);
+				f = rec.FindField($"Value {i} Group Rule", ref index, false, 0, true);
 				if (f == null)
 					r.GroupRules.Add(AbilityValueRule.None);
 				else
@@ -49,12 +49,12 @@ public class AbilityRuleLoader : DataFileLoader
 			int j = 3;
 			while (true)
 			{
-				var f = rec.FindField("Value " + j + " Rule", ref index, false, 0, true);
+				var f = rec.FindField($"Value {j} Rule", ref index, false, 0, true);
 				if (f == null)
 					break;
 				else
 					r.ValueRules.Add(f.CreateFormula<AbilityValueRule>(r));
-				f = rec.FindField("Value " + j + " Group Rule", ref index, false, 0, true);
+				f = rec.FindField($"Value {j} Group Rule", ref index, false, 0, true);
 				if (f == null)
 					r.GroupRules.Add(AbilityValueRule.None);
 				else

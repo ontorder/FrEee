@@ -21,10 +21,10 @@ public static class AbilityLoader
 			var abil = new Ability(obj);
 
 			var nfield = rec.FindField(new string[]
-					{
-						"Ability " + count + " Type",
-						"Ability Type"
-					}, ref index, false, index + 1);
+			{
+				$"Ability {count} Type",
+				"Ability Type"
+			}, ref index, false, index + 1);
 			if (nfield == null)
 				break; // no more abilities
 			var abilname = nfield.CreateFormula<string>(abil).Value;
@@ -34,7 +34,7 @@ public static class AbilityLoader
 				var rules = Mod.Current.AbilityRules.Where(r => r.Matches(abilname)).ToArray();
 				if (rules.Length > 1)
 				{
-					Mod.Errors.Add(new DataParsingException("Ambiguous ability name match for " + abilname + " alias between the following abilities: " + string.Join(", ", rules.Select(r => r.Name).ToArray()) + ".", filename, rec));
+					Mod.Errors.Add(new DataParsingException($"Ambiguous ability name match for {abilname} alias between the following abilities: {string.Join(", ", rules.Select(r => r.Name).ToArray())}.", filename, rec));
 					continue;
 				}
 				else if (rules.Length == 0)
@@ -46,7 +46,7 @@ public static class AbilityLoader
 				else
 					abil.Rule = rules.Single();
 
-				abil.Description = rec.Get<string>(new string[] { "Ability " + count + " Descr", "Ability Descr" }, obj);
+				abil.Description = rec.Get<string>(new string[] { $"Ability {count} Descr", "Ability Descr" }, obj);
 
 				int valnum = 0;
 				int idx = -1;
@@ -55,12 +55,12 @@ public static class AbilityLoader
 					valnum++;
 
 					var vfield = rec.FindField(new string[]
-						{
-						"Ability " + count + " Val " + valnum,
-						"Ability " + count + " Val",
-						"Ability Val " + valnum,
+					{
+						$"Ability {count} Val {valnum}",
+						$"Ability {count} Val",
+						$"Ability Val {valnum}",
 						"Ability Val"
-						}, ref idx, false, idx + 1);
+					}, ref idx, false, idx + 1);
 					if (vfield == null)
 						break;
 					var val = vfield.CreateFormula<string>(abil);
@@ -90,7 +90,7 @@ public static class AbilityLoader
 			AbilityRule abilRule;
 			var vals = new Dictionary<int, Formula<int>>();
 
-			var nameField = rec.FindField(new string[] { "Ability " + count + " " + what + " Type", "Ability " + what + " Type" }, ref start, false, start + 1, true);
+			var nameField = rec.FindField(new string[] { $"Ability {count} {what} Type", $"Ability {what} Type" }, ref start, false, start + 1, true);
 			if (nameField == null)
 				break; // no more abilities
 
@@ -101,12 +101,12 @@ public static class AbilityLoader
 			{
 				vcount++;
 				var valField = rec.FindField(new string[]
-					{
-						"Ability " + count + " " + what + " " + vcount,
-						"Ability " + count + " " + what,
-						"Ability " + what + " " + vcount,
-						"Ability " + what
-					}, ref start, false, start + 1);
+				{
+					$"Ability {count} {what} {vcount}",
+					$"Ability {count} {what}",
+					$"Ability {what} {vcount}",
+					$"Ability {what}"
+				}, ref start, false, start + 1);
 
 				if (valField == null)
 					break; // no more values

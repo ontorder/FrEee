@@ -14,7 +14,7 @@ public class LiteralFormula<T> : Formula<T>, IEquatable<LiteralFormula<T>>
 	where T : IConvertible, IComparable
 {
 	public LiteralFormula(string text)
-				: base(text)
+		: base(text)
 	{
 	}
 

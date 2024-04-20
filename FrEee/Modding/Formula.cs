@@ -14,7 +14,7 @@ public abstract class Formula<T> : IFormula<T>, IComparable<T>, IComparable<Form
 	where T : IComparable, IConvertible
 {
 	public Formula(string text)
-				: this()
+		: this()
 	{
 		Text = text;
 	}

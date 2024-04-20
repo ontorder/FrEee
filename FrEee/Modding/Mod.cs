@@ -297,7 +297,7 @@ public class Mod : IDisposable
 			var files = loaders.Where(q => q.Value == p).Select(q => q.Key.FileName);
 			CurrentFileName = string.Join(" / ", files);
 			if (status != null)
-				status.Message = "Loading " + CurrentFileName;
+				status.Message = $"Loading {CurrentFileName}";
 
 			loaders.Where(q => q.Value == p).ParallelSafeForeach(loader =>
 			{
