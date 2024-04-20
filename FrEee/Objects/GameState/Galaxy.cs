@@ -485,7 +485,7 @@ public class Galaxy : ICommonAbilityObject
     /// <exception cref="InvalidOperationException">if there is no mod loaded.</exception>
     /// <param name="status">A status object to report status back to the GUI.</param>
     /// <param name="desiredProgress">How much progress should we report back to the GUI when we're done initializing the galaxy? 1.0 means all done with everything that needs to be done.</param>
-    public static void Initialize(GameSetup gsu, PRNG? dice, Status? status = null, double desiredProgress = 1.0)
+    public static void Initialize(GameSetup gameSetup, PRNG? dice, Status? status = null, double desiredProgress = 1.0)
     {
         if (Mod.Current == null)
             throw new InvalidOperationException("Cannot initialize a galaxy without a mod. Load a mod into Mod.Current first.");
@@ -499,19 +499,19 @@ public class Galaxy : ICommonAbilityObject
         // create the game
         if (Current == null)
         {
-            var galtemp = gsu.GalaxyTemplate;
-            galtemp.GameSetup = gsu;
+            var galtemp = gameSetup.GalaxyTemplate;
+            galtemp.GameSetup = gameSetup;
             Current = galtemp.Instantiate(status, startProgress + progressPerStep, dice);
         }
         if (status != null)
             status.Message = "Populating galaxy";
-        gsu.PopulateGalaxy(Current, dice);
+        gameSetup.PopulateGalaxy(Current, dice);
         Current.SaveTechLevelsForUniqueness();
         if (status != null)
             status.Progress += progressPerStep;
 
         // set single player flag
-        Current.IsSinglePlayer = gsu.IsSinglePlayer;
+        Current.IsSinglePlayer = gameSetup.IsSinglePlayer;
 
         // run init script
         if (status != null)
