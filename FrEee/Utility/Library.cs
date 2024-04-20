@@ -40,7 +40,7 @@ public static class Library
 	/// <typeparam name="T">The type of object to delete.</typeparam>
 	/// <param name="condition">Condition to apply when selecting objects to delete.</param>
 	/// <returns>Number of objects deleted.</returns>
-	public static int Delete<T>(Func<T, bool> condition = null, bool autosave = true)
+	public static int Delete<T>(Func<T, bool>? condition = null, bool autosave = true)
 	{
 		// defaults to deleting all
 		if (condition == null)
@@ -65,7 +65,7 @@ public static class Library
 	/// <param name="cleaner">Anything special to do to the copied object before saving it.</param>
 	/// <param name="autosave"></param>
 	/// <param name="o"></param>
-	public static void Export<T>(T o, Action<T> cleaner = null, bool autosave = true)
+	public static void Export<T>(T o, Action<T>? cleaner = null, bool autosave = true)
 	{
 		var c = o.CopyAndAssignNewID();
 		// TODO - unassign ID in galaxy? does it matter?
@@ -82,7 +82,7 @@ public static class Library
 	/// <typeparam name="T">The type of object to import.</typeparam>
 	/// <param name="condition">Condition to apply when selecting objects to import.</param>
 	/// <returns>Copied objects imported.</returns>
-	public static IEnumerable<T> Import<T>(Func<T, bool> condition = null)
+	public static IEnumerable<T> Import<T>(Func<T, bool>? condition = null)
 	{
 		// defaults to loading all
 		if (condition == null)

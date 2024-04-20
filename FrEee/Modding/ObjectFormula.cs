@@ -99,7 +99,7 @@ public class ObjectFormula<T> : IFormula<T>
 		return IsDynamic == other.IsDynamic && Text == other.Text && Context == other.Context;
 	}
 
-	public T Evaluate(object host, IDictionary<string, object> variables = null)
+	public T Evaluate(object host, IDictionary<string, object>? variables = null)
 	{
 		var vars = new Dictionary<string, object>(variables ?? new Dictionary<string, object>());
 		vars.Add("self", Context);

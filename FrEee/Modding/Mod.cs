@@ -65,7 +65,7 @@ public class Mod : IDisposable
 	/// <summary>
 	/// The file name being loaded. (For error reporting)
 	/// </summary>
-	public static string CurrentFileName { get; private set; }
+	public static string? CurrentFileName { get; private set; }
 
 	/// <summary>
 	/// Errors encountered when loading the mod.

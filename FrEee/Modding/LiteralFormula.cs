@@ -102,7 +102,7 @@ public class LiteralFormula<T> : Formula<T>, IEquatable<LiteralFormula<T>>
 		return Text == other.Text;
 	}
 
-	public override T Evaluate(object host, IDictionary<string, object> variables = null)
+	public override T Evaluate(object host, IDictionary<string, object>? variables = null)
 	{
 		// no need to call a script
 		return Value;
@@ -113,7 +113,7 @@ public class LiteralFormula<T> : Formula<T>, IEquatable<LiteralFormula<T>>
 		return HashCodeMasher.Mash(Text);
 	}
 
-	public override Formula<string> ToStringFormula(CultureInfo c = null)
+	public override Formula<string> ToStringFormula(CultureInfo? c = null)
 	{
 		return new LiteralFormula<string>(Value.ToString(c ?? CultureInfo.InvariantCulture));
 	}

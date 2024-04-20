@@ -101,7 +101,7 @@ public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 			yield return rec;
 			yield break;
 		}
-		IList<IDictionary<string, int>> permutations = null;
+		IList<IDictionary<string, int>>? permutations = null;
 		foreach (var parm in parms)
 			permutations = CreatePermutations(parm, permutations);
 		foreach (var permutation in permutations)

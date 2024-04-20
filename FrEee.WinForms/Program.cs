@@ -195,7 +195,7 @@ FrEee --restart gamename_turnnumber_playernumber.gam: play a turn, restarting fr
 
 	private static int ProcessArgs(string file, string operation = null, string extraArg = null)
 	{
-		string gamfile = null, plrfile = null;
+		string? gamfile = null, plrfile = null;
 
 		// guess operation from filename
 		// TODO - move these regexes to the Galaxy class?

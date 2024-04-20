@@ -51,7 +51,7 @@ public class ModInfoLoader : ILoader
 		{
 			IEnumerable<string> lines = File.ReadAllLines(filepath);
 			lines = lines.Skip(1); // skip Modinfo2 line
-			string curField = null;
+			string? curField = null;
 			foreach (var line in lines)
 			{
 				if (curField == null)
