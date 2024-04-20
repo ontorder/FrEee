@@ -6,16 +6,16 @@ System Physical Type:
   Normal, Nebulae, Black Hole
 
 Background Bitmap:
-  This is the bitmap which is displayed in the background of the 
-  solar system window. There needs to be 1 of these in the 
-  Pictures\Game\Screens\1024x768 and 1 in the 
+  This is the bitmap which is displayed in the background of the
+  solar system window. There needs to be 1 of these in the
+  Pictures\Game\Screens\1024x768 and 1 in the
   Pictures\Game\Screens\800x600 directories. The exact same name
   should be used. One is a larger image for larger displays (1024x768),
   the other is for smaller displays.
 
 Empires Can Start In:
-  Whether one of an empire's planets can start within a system of this 
-  type when the game is created. 
+  Whether one of an empire's planets can start within a system of this
+  type when the game is created.
 
 Mask Background Objs:
   Whether items such as planets, warp points, etc. need to be masked
@@ -23,7 +23,7 @@ Mask Background Objs:
 
 Non-Tiled Center Pic:
   Picture displayed should be shown in the center of the combat map and
-  is not tiled. 
+  is not tiled.
 
 Abilities:
   System - Sight Obscuration, System - Sensor Interference, System - Shield Disruption,
@@ -42,15 +42,15 @@ Obj X Physical Type:
 
 Obj X Position:
   Ring 1 : Center Square of System.
-  Ring 2 - 7 : 1 - 6 squares out from Center of System. 
+  Ring 2 - 7 : 1 - 6 squares out from Center of System.
     The actual position in the ring is completely random.
-  Coord X, Y : A coordinate position within the system. 
-    X is horizontal position from 0 to 12, 
+  Coord X, Y : A coordinate position within the system.
+    X is horizontal position from 0 to 12,
     Y is vertical position from 0 to 12.
     There is no randomness to this placement.
-  Same As X : The same position as Obj X. 
+  Same As X : The same position as Obj X.
     There is no randomness to this placement.
-  Circle Radius X: A true circle in the system at distance X. 
+  Circle Radius X: A true circle in the system at distance X.
     The actual position in the ring is completely random.
 
 Obj X Stellar Abil Type:
@@ -1008,7 +1008,7 @@ Ability 1 Descr           := All ships will be moved 2 sectors towards the cente
 Ability 1 Val 1           := 2
 Ability 1 Val 2           := 0
 Ability 2 Type            := System - Destructive Center
-Ability 2 Descr           := The center of the blackhole will destroy any ships that enter it. 
+Ability 2 Descr           := The center of the blackhole will destroy any ships that enter it.
 Ability 2 Val 1           := 5000
 Ability 2 Val 2           := 0
 Ability 3 Type            := Sector - Shield Disruption
@@ -1019,7 +1019,7 @@ WP Stellar Abil Type      := Unstable Warp Point
 Number of System Objs     := 0
 
 Name                      := Black Hole 2
-Description               := A massive black hole which is drawing in all matter from nearby solar systems. 
+Description               := A massive black hole which is drawing in all matter from nearby solar systems.
 System Physical Type      := Black Hole
 Background Bitmap         := blackhole2.bmp
 Empires Can Start In      := FALSE
@@ -1031,7 +1031,7 @@ Ability 1 Descr           := All ships will be moved 2 sectors towards the cente
 Ability 1 Val 1           := 2
 Ability 1 Val 2           := 0
 Ability 2 Type            := System - Destructive Center
-Ability 2 Descr           := The center of the blackhole will destroy any ships that enter it. 
+Ability 2 Descr           := The center of the blackhole will destroy any ships that enter it.
 Ability 2 Val 1           := 5000
 Ability 2 Val 2           := 0
 Ability 3 Type            := Sector - Shield Disruption
@@ -1042,7 +1042,7 @@ WP Stellar Abil Type      := Unstable Warp Point
 Number of System Objs     := 0
 
 Name                      := Comet 1
-Description               := A massive planetary fragment is passing through this system.  
+Description               := A massive planetary fragment is passing through this system.
 System Physical Type      := Normal
 Background Bitmap         := comet1.bmp
 Empires Can Start In      := FALSE
@@ -1064,7 +1064,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Stellar Core Fragment 1
-Description               := A hyper-dense core fragment is passing through this system. 
+Description               := A hyper-dense core fragment is passing through this system.
 System Physical Type      := Normal
 Background Bitmap         := corefragment1.bmp
 Empires Can Start In      := FALSE
@@ -1075,7 +1075,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Green Giant 1
-Description               := A green giant has engulfed all of the planets of this system. 
+Description               := A green giant has engulfed all of the planets of this system.
 System Physical Type      := Normal
 Background Bitmap         := greengiant1.bmp
 Empires Can Start In      := FALSE
@@ -1196,7 +1196,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Organic Infestation 1
-Description               := This system has been consumed by an organic infestation. 
+Description               := This system has been consumed by an organic infestation.
 System Physical Type      := Normal
 Background Bitmap         := plant1.bmp
 Empires Can Start In      := FALSE
@@ -1207,7 +1207,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Organic Infestation 2
-Description               := This system has been consumed by an organic infestation. 
+Description               := This system has been consumed by an organic infestation.
 System Physical Type      := Normal
 Background Bitmap         := plant2.bmp
 Empires Can Start In      := FALSE
@@ -1218,7 +1218,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Red Giant 1
-Description               := A red giant has engulfed all of the planets of this system. 
+Description               := A red giant has engulfed all of the planets of this system.
 System Physical Type      := Normal
 Background Bitmap         := redgiant1.bmp
 Empires Can Start In      := FALSE
@@ -1229,7 +1229,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Red Giant 2
-Description               := A red giant has engulfed all of the planets of this system. 
+Description               := A red giant has engulfed all of the planets of this system.
 System Physical Type      := Normal
 Background Bitmap         := redgiant2.bmp
 Empires Can Start In      := FALSE
@@ -1278,7 +1278,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Burnt Out Star 1
-Description               := A long dead star is all that remains in this system. 
+Description               := A long dead star is all that remains in this system.
 System Physical Type      := Normal
 Background Bitmap         := StarBurntOut1.bmp
 Empires Can Start In      := FALSE
@@ -1289,7 +1289,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Star Forming 1
-Description               := A star has begun the process of forming in this system. 
+Description               := A star has begun the process of forming in this system.
 System Physical Type      := Normal
 Background Bitmap         := StarForming1.bmp
 Empires Can Start In      := FALSE
@@ -1300,7 +1300,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Star Forming 2
-Description               := A star has begun the process of forming in this system. 
+Description               := A star has begun the process of forming in this system.
 System Physical Type      := Normal
 Background Bitmap         := StarForming2.bmp
 Empires Can Start In      := FALSE
@@ -1311,7 +1311,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Star Forming 3
-Description               := A star has begun the process of forming in this system. 
+Description               := A star has begun the process of forming in this system.
 System Physical Type      := Normal
 Background Bitmap         := StarForming3.bmp
 Empires Can Start In      := FALSE
@@ -1322,7 +1322,7 @@ WP Stellar Abil Type      := Normal Warp Point
 Number of System Objs     := 0
 
 Name                      := Star Forming 4
-Description               := A star has begun the process of forming in this system. 
+Description               := A star has begun the process of forming in this system.
 System Physical Type      := Normal
 Background Bitmap         := StarForming4.bmp
 Empires Can Start In      := FALSE
