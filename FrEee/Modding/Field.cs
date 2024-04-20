@@ -23,7 +23,7 @@ public class Field
 	/// Creates a field by parsing some string data.
 	/// </summary>
 	/// <param name="data"></param>
-	public Field(string data, Record parent = null)
+	public Field(string data)
 	{
 		var pos = data.IndexOf(Separator);
 		Name = data.Substring(0, pos).Trim();

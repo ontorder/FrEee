@@ -27,7 +27,7 @@ public class Record
 		: this()
 	{
 		foreach (var line in lines.Where(l => l.Contains(":=")))
-			Fields.Add(new Field(line, this));
+			Fields.Add(new Field(line));
 	}
 
 	/// <summary>
