@@ -73,13 +73,13 @@ FrEee --restart gamename_turnnumber_playernumber.gam: play a turn, restarting fr
 				{
 					if (ex.InnerException != null)
 						Log(ex.InnerException);
-					var values = new Dictionary<string, string>
+					var values = new KeyValuePair<string, string>[]
 					{
-						{ "app", "FrEee (WinForms)" },
-						{ "version", Application.ProductVersion },
-						{ "type", ex.GetType().Name },
-						{ "message", ex.Message },
-						{ "stackTrace", ex.StackTrace },
+						new("app", "FrEee (WinForms)"),
+						new("version", Application.ProductVersion),
+						new("type", ex.GetType().Name),
+						new("message", ex.Message),
+						new("stackTrace", ex.StackTrace),
 					};
 					var content = new FormUrlEncodedContent(values);
 					var response = http.PostAsync("http://edkolis.com/errorlog", content).Result;
@@ -93,9 +93,9 @@ FrEee --restart gamename_turnnumber_playernumber.gam: play a turn, restarting fr
 					inner = inner.InnerException;
 				MessageBox.Show(inner.GetType().Name + ": " + inner.Message + "\n\nSee errorlog.txt for more details.");
 			}
-			catch (Exception ex)
+			catch (Exception sendErr)
 			{
-				MessageBox.Show("Error logging exception: " + ex.Message);
+				MessageBox.Show("Error logging exception: " + sendErr.Message);
 			}
 		};
 

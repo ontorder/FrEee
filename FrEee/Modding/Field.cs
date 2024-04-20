@@ -58,19 +58,19 @@ public class Field
 	}
 
 	public Formula<T> CreateFormula<T>(object context)
-				where T : IConvertible, IComparable
+		where T : IConvertible, IComparable
 	{
 		var txt = Value;
 
 		// deal with replacement strings
-		txt = Regex.Replace(txt, @"\[\%(.*?)\%?\]", @"{{$1}}");
+		txt = Regex.Replace(txt, @"\[\%(.*?)\%?\]", @"{{$1}}"); // TODO static compiled regex
 
 		if (txt.StartsWith("=="))
 			return new ComputedFormula<T>(txt.TrimStart('='), context, true); // dynamic
-		else if (txt.StartsWith("="))
+		else if (txt.StartsWith('='))
 			return new ComputedFormula<T>(txt.TrimStart('='), context, false); // static
 																// TODO - take into account quotes when seeing if we have string interpolation?
-		else if (txt.Contains("{") && txt.Substring(txt.IndexOf("{")).Contains("}"))
+		else if (txt.Contains('{') && txt.Substring(txt.IndexOf("{")).Contains('}'))
 		{
 			// string interpolation formula
 			var isDynamic = txt.Contains("{{") && txt.Substring(txt.IndexOf("{{")).Contains("}}");

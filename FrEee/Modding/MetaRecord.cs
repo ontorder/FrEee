@@ -31,58 +31,61 @@ public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 		{
 			string expecting = "Name";
 			var p = new MetaRecordParameter();
-			foreach (var f in Fields.Where(f => f.Name.StartsWith("Parameter ")))
+			var parameterFields = Fields.Where(f => f.Name.StartsWith("Parameter "));
+			foreach (var f in parameterFields)
 			{
 				var what = f.Name.Substring("Parameter ".Length);
-				if (expecting == "Name")
+				switch (expecting)
 				{
-					if (what == "Name")
-					{
-						p.Name = f.Value;
-						expecting = "Minimum";
-					}
-					else
-					{
-						Mod.Errors.Add(new DataParsingException("Expected Parameter Name, found Parameter " + what + ".", Filename, this, f));
-						yield break;
-					}
-				}
-				else if (expecting == "Minimum")
-				{
-					if (what == "Minimum")
-					{
-						p.Minimum = f.CreateFormula<int>(p);
-						expecting = "Maximum";
-					}
-					else if (what == "Maximum")
-					{
-						// it's OK, just set minimum to 1
-						p.Minimum = 1;
-						p.Maximum = f.CreateFormula<int>(p);
-						expecting = "Name";
-						yield return p;
-						p = new MetaRecordParameter();
-					}
-					else
-					{
-						Mod.Errors.Add(new DataParsingException("Expected Parameter Minimum or Parameter Maximum, found Parameter " + what + ".", Filename, this, f));
-						yield break;
-					}
-				}
-				else if (expecting == "Maximum")
-				{
-					if (what == "Maximum")
-					{
-						p.Maximum = f.CreateFormula<int>(p);
-						expecting = "Name";
-						yield return p;
-						p = new MetaRecordParameter();
-					}
-					else
-					{
-						Mod.Errors.Add(new DataParsingException("Expected Parameter Maximum, found Parameter " + what + ".", Filename, this, f));
-						yield break;
-					}
+					case "Name":
+						if (what == "Name")
+						{
+							p.Name = f.Value;
+							expecting = "Minimum";
+						}
+						else
+						{
+							Mod.Errors.Add(new DataParsingException($"Expected Parameter Name, found Parameter {what}.", Filename, this, f));
+							yield break;
+						}
+						break;
+
+					case "Minimum":
+						if (what == "Minimum")
+						{
+							p.Minimum = f.CreateFormula<int>(p);
+							expecting = "Maximum";
+						}
+						else if (what == "Maximum")
+						{
+							// it's OK, just set minimum to 1
+							p.Minimum = 1;
+							p.Maximum = f.CreateFormula<int>(p);
+							expecting = "Name";
+							yield return p;
+							p = new MetaRecordParameter();
+						}
+						else
+						{
+							Mod.Errors.Add(new DataParsingException($"Expected Parameter Minimum or Parameter Maximum, found Parameter {what}.", Filename, this, f));
+							yield break;
+						}
+						break;
+
+					case "Maximum":
+						if (what == "Maximum")
+						{
+							p.Maximum = f.CreateFormula<int>(p);
+							expecting = "Name";
+							yield return p;
+							p = new MetaRecordParameter();
+						}
+						else
+						{
+							Mod.Errors.Add(new DataParsingException("Expected Parameter Maximum, found Parameter " + what + ".", Filename, this, f));
+							yield break;
+						}
+						break;
 				}
 			}
 			if (expecting != "Name")
@@ -110,44 +113,46 @@ public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 			rec.Parameters = new Dictionary<string, object>();
 			foreach (var kvp in permutation)
 				rec.Parameters.Add(kvp.Key, kvp.Value);
+
 			foreach (var f in Fields)
 			{
-				if (!f.Name.StartsWith("Parameter "))
+				if (f.Name.StartsWith("Parameter "))
+					continue;
+
+				if (f.Value.StartsWith("=="))
 				{
-					if (f.Value.StartsWith("=="))
-					{
-						// dynamic formula field will be evaluated later
-						rec.Fields.Add(f.Copy());
-					}
-					else if (f.Value.StartsWith("="))
-					{
-						// static formula field
-						rec.Fields.Add(CreateStaticFormulaField(f, permutation));
-					}
-					else if (f.Value.Contains("{") && f.Value.Substring(f.Value.IndexOf("{")).Contains("}"))
-					{
-						// string interpolation formula
-						var isDynamic = f.Value.Contains("{{") && f.Value.Substring(f.Value.IndexOf("{{")).Contains("}}");
-						var replacedText = f.Value;
-						if (isDynamic)
-							replacedText = "=='" + replacedText + "'"; // make it a string
-						else
-							replacedText = "='" + replacedText + "'"; // make it a string
-						replacedText = replacedText.Replace("{{", "' + str(");
-						replacedText = replacedText.Replace("}}", ") + '");
-						replacedText = replacedText.Replace("{", "' + str(");
-						replacedText = replacedText.Replace("}", ") + '");
-						f.Value = replacedText;
-						if (isDynamic)
-							throw new NotImplementedException("Dynamic inline formulas are not yet supported.");
-						else
-							rec.Fields.Add(CreateStaticFormulaField(f, permutation));
-					}
+					// dynamic formula field will be evaluated later
+					rec.Fields.Add(f.Copy());
+				}
+				else if (f.Value.StartsWith('='))
+				{
+					// static formula field
+					rec.Fields.Add(CreateStaticFormulaField(f, permutation));
+				}
+				else if (f.Value.Contains('{') && f.Value.Substring(f.Value.IndexOf('{')).Contains('}'))
+				{
+					// string interpolation formula
+					var isDynamic = f.Value.Contains("{{") && f.Value.Substring(f.Value.IndexOf("{{")).Contains("}}");
+					var replacedText = f.Value;
+					if (isDynamic)
+						replacedText = $"=='{replacedText}'"; // make it a string
 					else
-					{
-						// plain old field
-						rec.Fields.Add(f.Copy());
-					}
+						replacedText = $"='{replacedText}'"; // make it a string
+					replacedText = replacedText
+						.Replace("{{", "' + str(")
+						.Replace("}}", ") + '")
+						.Replace("{", "' + str(")
+						.Replace("}", ") + '");
+					f.Value = replacedText;
+					if (isDynamic)
+						throw new NotImplementedException("Dynamic inline formulas are not yet supported.");
+					else
+						rec.Fields.Add(CreateStaticFormulaField(f, permutation));
+				}
+				else
+				{
+					// plain old field
+					rec.Fields.Add(f.Copy());
 				}
 			}
 			yield return rec;
