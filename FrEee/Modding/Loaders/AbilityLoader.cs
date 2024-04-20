@@ -44,7 +44,7 @@ public static class AbilityLoader
 					Mod.Current.AbilityRules.Add(abil.Rule);
 				}
 				else
-					abil.Rule = rules.Single();
+					abil.Rule = rules.First();
 
 				abil.Description = rec.Get<string>(new string[] { $"Ability {count} Descr", "Ability Descr" }, obj);
 
