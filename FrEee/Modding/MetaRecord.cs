@@ -9,7 +9,7 @@ namespace FrEee.Modding;
 /// <summary>
 /// A record which takes parameters and is capable of generating multiple records using formulas.
 /// </summary>
-public class MetaRecord : Record, ITemplate<IEnumerable<Record>>
+public sealed class MetaRecord : Record, ITemplate<IEnumerable<Record>>
 {
 	public MetaRecord()
 		: base()

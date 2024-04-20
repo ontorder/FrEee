@@ -9,7 +9,7 @@ namespace FrEee.Modding.Loaders;
 /// Loads ability rules from AbilityRules.txt.
 /// </summary>
 [Serializable]
-public class AbilityRuleLoader : DataFileLoader
+public sealed class AbilityRuleLoader : DataFileLoader
 {
 	public AbilityRuleLoader(string modPath)
 		 : base(modPath, Filename, DataFile.Load(modPath, Filename))

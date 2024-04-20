@@ -10,7 +10,7 @@ namespace FrEee.Modding.Loaders;
 /// Loads facilities from Facility.txt.
 /// </summary>
 [Serializable]
-public class FacilityLoader : DataFileLoader
+public sealed class FacilityLoader : DataFileLoader
 {
 	public FacilityLoader(string modPath)
 		 : base(modPath, Filename, DataFile.Load(modPath, Filename))
