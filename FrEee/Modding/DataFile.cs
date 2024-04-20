@@ -21,6 +21,8 @@ public class DataFile
 		MetaRecords = new List<MetaRecord>();
 	}
 
+	static readonly char[] _newlineChars = new[] { '\n', '\r' };
+
 	/// <summary>
 	/// Creates a data file by parsing some string data.
 	/// </summary>
@@ -29,7 +31,7 @@ public class DataFile
 		: this()
 	{
 		// split data into lines
-		var lines = data.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(l => l.Trim()).ToArray();
+		var lines = data.Split(_newlineChars).Select(l => l.Trim()).ToArray();
 
 		int curLine;
 
@@ -45,8 +47,9 @@ public class DataFile
 		curLine += 2;
 
 		List<DataFile> includeDataFiles = new List<DataFile>();
-		while (curLine < lines.Length && (lines[curLine].StartsWith("#include") ||
-			string.IsNullOrEmpty(lines[curLine])))
+		while (curLine < lines.Length
+			&& (lines[curLine].StartsWith("#include") || string.IsNullOrEmpty(lines[curLine]))
+		)
 		{
 			string line = lines[curLine];
 			if (string.IsNullOrEmpty(line))
@@ -57,7 +60,7 @@ public class DataFile
 
 			if (line.StartsWith("#include-from"))
 			{
-				var regex = new Regex("#include-from \"(.*)\" \"(.*)\"");
+				var regex = new Regex("#include-from \"(.*)\" \"(.*)\""); // TODO static compiled regex
 				var match = regex.Match(line);
 				var modName = match.Groups[1].Captures[0].Value;
 				var fileName = match.Groups[2].Captures[0].Value;
@@ -134,13 +137,7 @@ public class DataFile
 	/// <summary>
 	/// The individual records generated from the meta records.
 	/// </summary>
-	public IEnumerable<Record> Records
-	{
-		get
-		{
-			return MetaRecords.SelectMany(mr => mr.Instantiate());
-		}
-	}
+	public IEnumerable<Record> Records => MetaRecords.SelectMany(mr => mr.Instantiate());
 
 	/// <summary>
 	/// Loads a data file from disk.
@@ -151,13 +148,16 @@ public class DataFile
 	public static DataFile Load(string modpath, string filename, string subpath = "")
 	{
 		// TODO - fall back on stock data when mod data not found
-		var datapath = modpath == null ? "Data" : Path.Combine("Mods", modpath, "Data", subpath);
+		var datapath = modpath == null
+			? "Data"
+			: Path.Combine("Mods", modpath, "Data", subpath);
 
 		DataPath = modpath;
 
 		var filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), datapath, filename);
 		if (File.Exists(filepath))
 			return new DataFile(File.ReadAllText(filepath));
+
 		// got here? then try the stock data file instead if we were loading a mod
 		if (modpath != null)
 		{
@@ -165,12 +165,10 @@ public class DataFile
 			if (File.Exists(filepath))
 				return new DataFile(File.ReadAllText(filepath));
 		}
+
 		// got here? then data file was not found even in stock
 		throw new FileNotFoundException($"Could not find data file: {filename} at {filepath}.", filename);
 	}
 
-	public override string ToString()
-	{
-		return "(" + MetaRecords.Count + " meta records)";
-	}
+	public override string ToString() => $"({MetaRecords.Count} meta records)";
 }
