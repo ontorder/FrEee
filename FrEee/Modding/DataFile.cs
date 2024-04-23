@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FrEee.Utility;
+using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace FrEee.Modding;
@@ -154,14 +155,14 @@ public class DataFile
 
 		DataPath = modpath;
 
-		var filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), datapath, filename);
+		var filepath = Path.Combine(CurrentAssembly.Location, datapath, filename);
 		if (File.Exists(filepath))
 			return new DataFile(File.ReadAllText(filepath));
 
 		// got here? then try the stock data file instead if we were loading a mod
 		if (modpath != null)
 		{
-			filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", filename);
+			filepath = Path.Combine(CurrentAssembly.Location, "Data", filename);
 			if (File.Exists(filepath))
 				return new DataFile(File.ReadAllText(filepath));
 		}

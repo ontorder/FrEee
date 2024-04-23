@@ -100,7 +100,7 @@ FrEee --restart gamename_turnnumber_playernumber.gam: play a turn, restarting fr
 		};
 
 		// HACK - so many things are based on the working directory...
-		Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+		Directory.SetCurrentDirectory(CurrentAssembly.Location);
 
 		Application.EnableVisualStyles();
 		Application.SetCompatibleTextRenderingDefault(false);

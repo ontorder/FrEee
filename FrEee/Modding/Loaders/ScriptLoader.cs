@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using FrEee.Utility;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace FrEee.Modding.Loaders;
 
 /// <summary>
 /// Loads the mod's general purpose scripts (not AI scripts).
 /// </summary>
-public class ScriptLoader : ILoader
+public sealed class ScriptLoader : ILoader
 {
 	public ScriptLoader(string modPath)
 	{
@@ -33,31 +33,31 @@ public class ScriptLoader : ILoader
 		{
 			var name = "builtins";
 			string filename;
-			string stockFilename = filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts", name);
+			string stockFilename = Path.Combine(CurrentAssembly.Location, "Scripts", name);
 			if (ModPath == null)
 				filename = stockFilename;
 			else
-				filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Mods", ModPath, "Scripts", name);
+				filename = Path.Combine(CurrentAssembly.Location, "Mods", ModPath, "Scripts", name);
 			mod.GlobalScript = PythonScript.Load(filename) ?? PythonScript.Load(stockFilename) ?? new PythonScript(name, "");
 		}
 		{
 			var name = "GameInit";
 			string filename;
-			string stockFilename = filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts", name);
+			string stockFilename = Path.Combine(CurrentAssembly.Location, "Scripts", name);
 			if (ModPath == null)
 				filename = stockFilename;
 			else
-				filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Mods", ModPath, "Scripts", name);
+				filename = Path.Combine(CurrentAssembly.Location, "Mods", ModPath, "Scripts", name);
 			mod.GameInitScript = PythonScript.Load(filename) ?? PythonScript.Load(stockFilename) ?? new PythonScript(name, "");
 		}
 		{
 			var name = "EndTurn";
 			string filename;
-			string stockFilename = filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts", name);
+			string stockFilename = Path.Combine(CurrentAssembly.Location, "Scripts", name);
 			if (ModPath == null)
 				filename = stockFilename;
 			else
-				filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Mods", ModPath, "Scripts", name);
+				filename = Path.Combine(CurrentAssembly.Location, "Mods", ModPath, "Scripts", name);
 			mod.EndTurnScript = PythonScript.Load(filename) ?? PythonScript.Load(stockFilename) ?? new PythonScript(name, "");
 		}
 

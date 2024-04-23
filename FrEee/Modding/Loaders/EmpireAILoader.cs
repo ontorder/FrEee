@@ -3,7 +3,6 @@ using FrEee.Objects.Civilization;
 using FrEee.Utility;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using FrEee.Objects.GameState;
 
 namespace FrEee.Modding.Loaders;
@@ -35,11 +34,11 @@ public class EmpireAILoader : ILoader
 	{
 		string empsFolder;
 		if (ModPath == null)
-			//empsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Pictures", "Races");
-			empsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts", "AI");
+			//empsFolder = Path.Combine(CurrentAssembly.Location, "Pictures", "Races");
+			empsFolder = Path.Combine(CurrentAssembly.Location, "Scripts", "AI");
 		else
-			empsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ModPath, "Scripts", "AI");
-		//empsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ModPath, "Pictures", "Races");
+			empsFolder = Path.Combine(CurrentAssembly.Location, ModPath, "Scripts", "AI");
+		//empsFolder = Path.Combine(CurrentAssembly.Location, ModPath, "Pictures", "Races");
 		if (Directory.Exists(empsFolder))
 		{
 			foreach (var empFolder in Directory.GetDirectories(empsFolder))
@@ -75,7 +74,7 @@ public class EmpireAILoader : ILoader
 					mod.EmpireAIs.Add(ai);
 					yield return ai;
 				}
-				//C# AI. 
+				//C# AI.
 				else if (File.Exists(Path.Combine(empFolder, "AI.csx")))
 				{
 					var script = CSScript.Load(Path.Combine(empFolder, "AI"));

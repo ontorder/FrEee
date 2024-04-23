@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FrEee.Utility;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace FrEee.Modding.Loaders;
 
@@ -37,9 +37,9 @@ public class TextLoader : ILoader
 		var dest = DestinationGetter(mod);
 		string filepath;
 		if (ModPath == null)
-			filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", FileName);
+			filepath = Path.Combine(CurrentAssembly.Location, "Data", FileName);
 		else
-			filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Mods", ModPath, "Data", FileName);
+			filepath = Path.Combine(CurrentAssembly.Location, "Mods", ModPath, "Data", FileName);
 		if (File.Exists(filepath))
 		{
 			foreach (var s in File.ReadAllLines(filepath))
@@ -47,7 +47,7 @@ public class TextLoader : ILoader
 		}
 		else if (ModPath != null)
 		{
-			filepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", FileName);
+			filepath = Path.Combine(CurrentAssembly.Location, "Data", FileName);
 			if (File.Exists(filepath))
 			{
 				foreach (var s in File.ReadAllLines(filepath))
