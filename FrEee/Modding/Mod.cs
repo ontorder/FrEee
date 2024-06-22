@@ -299,7 +299,7 @@ public class Mod : IDisposable
 			if (status != null)
 				status.Message = $"Loading {CurrentFileName}";
 
-			loaders.Where(q => q.Value == p).ParallelSafeForeach(loader =>
+			foreach (var loader in loaders.Where(q => q.Value == p))
 			{
 				foreach (var mo in loader.Key.Load(mod).ToArray())
 				{
@@ -307,7 +307,7 @@ public class Mod : IDisposable
 				}
 				if (status != null)
 					status.Progress += progressPerFile;
-			});
+			}
 		}
 
 		CurrentFileName = null;
